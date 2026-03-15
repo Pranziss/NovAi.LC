@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nova Learning Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            jakarta: ['Plus Jakarta Sans', 'sans-serif'],
+            inter: ['Inter', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe',
+              300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6',
+              600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<script src="assets/js/chatbot.js"></script>
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-gray-950/80 border-b border-gray-100 dark:border-gray-800">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <span class="font-bold text-lg font-jakarta text-gray-900 dark:text-white">Nova<span class="text-brand-600">LC</span></span>
+      </div>
+
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600 dark:text-gray-400">
+        <a href="#features" class="hover:text-brand-600 transition-colors">Features</a>
+        <a href="#how" class="hover:text-brand-600 transition-colors">How it works</a>
+        <a href="#testimonials" class="hover:text-brand-600 transition-colors">Reviews</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="toggleTheme()" class="w-9 h-9 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle theme">
+          <svg class="w-4 h-4 text-gray-600 dark:text-gray-400 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+          </svg>
+          <svg class="w-4 h-4 text-gray-600 dark:text-gray-400 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+        </button>
+        <a href="pages/login.html" class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-600 transition-colors">Log in</a>
+        <a href="pages/login.html" class="btn-primary text-white text-sm font-semibold px-4 py-2 rounded-lg">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden hero-bg grid-bg pt-16">
+    <div class="dot w-3 h-3 bg-brand-400 opacity-40" style="top:18%;left:12%;animation-delay:0s;animation-duration:7s"></div>
+    <div class="dot w-2 h-2 bg-indigo-400 opacity-30" style="top:30%;left:88%;animation-delay:1s;animation-duration:5s"></div>
+    <div class="dot w-4 h-4 bg-brand-300 opacity-20" style="top:70%;left:8%;animation-delay:2s;animation-duration:8s"></div>
+    <div class="dot w-2 h-2 bg-brand-500 opacity-30" style="top:75%;left:85%;animation-delay:0.5s;animation-duration:6s"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <div class="inline-flex items-center gap-2 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-xs font-semibold px-4 py-2 rounded-full mb-8 badge-glow border border-brand-100 dark:border-brand-800">
+        <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-pulse"></span>
+        AI-Assisted Quiz Management
+      </div>
+
+      <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 font-jakarta">
+        Learn Smarter.<br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-indigo-500">Quiz Better.</span>
+      </h1>
+      <p class="text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+        Nova Learning Center is your all-in-one quiz platform. Create custom quizzes, track your progress, and get AI-powered study support — all in one place.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="pages/login.html" class="btn-primary text-white font-semibold px-8 py-3.5 rounded-xl text-base w-full sm:w-auto">
+          Start for free →
+        </a>
+        <a href="#how" class="flex items-center gap-2 text-gray-600 dark:text-gray-400 font-medium hover:text-brand-600 transition-colors text-base">
+          <div class="w-9 h-9 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          See how it works
+        </a>
+      </div>
+
+      <!-- Hero card preview -->
+      <div class="mt-16 relative max-w-2xl mx-auto">
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-2xl shadow-brand-100/30 dark:shadow-brand-900/20 p-6 text-left">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <p class="text-xs text-gray-400 mb-1">Question 3 of 5</p>
+              <div class="w-48 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full">
+                <div class="w-3/5 h-full bg-brand-500 rounded-full"></div>
+              </div>
+            </div>
+            <span class="text-xs font-semibold bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 px-2.5 py-1 rounded-lg">Science</span>
+          </div>
+          <p class="font-semibold font-jakarta mb-4 text-gray-900 dark:text-gray-100">What is the powerhouse of the cell?</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="p-3 rounded-xl border border-gray-100 dark:border-gray-800 text-sm text-gray-500 dark:text-gray-400">Nucleus</div>
+            <div class="p-3 rounded-xl border-2 border-brand-500 bg-brand-50 dark:bg-brand-900/30 text-sm font-semibold text-brand-600 dark:text-brand-400">Mitochondria ✓</div>
+            <div class="p-3 rounded-xl border border-gray-100 dark:border-gray-800 text-sm text-gray-500 dark:text-gray-400">Ribosome</div>
+            <div class="p-3 rounded-xl border border-gray-100 dark:border-gray-800 text-sm text-gray-500 dark:text-gray-400">Golgi Body</div>
+          </div>
+        </div>
+        <div class="absolute -inset-4 bg-brand-500/5 rounded-3xl -z-10 blur-xl"></div>
+      </div>
+    </div>
+  </section>
+,
+  <!-- FEATURES -->
+  <section id="features" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 fade-up">
+        <p class="text-brand-600 font-semibold text-sm mb-2 tracking-wide uppercase">Features</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold font-jakarta mb-4">Everything you need to learn</h2>
+        <p class="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">A focused set of tools designed to make quiz creation, studying, and tracking effortless.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <div class="card-hover bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 fade-up">
+          <div class="w-11 h-11 bg-brand-100 dark:bg-brand-900/40 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          </div>
+          <h3 class="font-bold font-jakarta text-lg mb-2">Quiz Builder</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Create multiple choice quizzes in seconds. Add questions, set the correct answer, and publish for anyone to discover.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 fade-up" style="transition-delay:0.1s">
+          <div class="w-11 h-11 bg-indigo-100 dark:bg-indigo-900/40 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3 class="font-bold font-jakarta text-lg mb-2">Progress Dashboard</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Track your scores over time with clean charts. See which subjects you're strong in and where you need to review.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 fade-up" style="transition-delay:0.2s">
+          <div class="w-11 h-11 bg-emerald-100 dark:bg-emerald-900/40 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          </div>
+          <h3 class="font-bold font-jakarta text-lg mb-2">AI Study Assistant</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Ask the AI chatbot to explain topics, clarify wrong answers, or suggest quiz sets relevant to what you're studying.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 fade-up" style="transition-delay:0.05s">
+          <div class="w-11 h-11 bg-rose-100 dark:bg-rose-900/40 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3 class="font-bold font-jakarta text-lg mb-2">Discover & Share</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Browse public quiz sets from other learners. Share yours with the community and build a collective knowledge base.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 fade-up" style="transition-delay:0.15s">
+          <div class="w-11 h-11 bg-amber-100 dark:bg-amber-900/40 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="font-bold font-jakarta text-lg mb-2">Instant Scoring</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Get your results immediately after finishing a quiz. See which questions you got right and review what you missed.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 fade-up" style="transition-delay:0.25s">
+          <div class="w-11 h-11 bg-sky-100 dark:bg-sky-900/40 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          </div>
+          <h3 class="font-bold font-jakarta text-lg mb-2">Secure Accounts</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Sign up with email, keep your quizzes and progress saved securely. Your data stays yours.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="py-24 px-6 bg-gray-50 dark:bg-gray-900/50">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 fade-up">
+        <p class="text-brand-600 font-semibold text-sm mb-2 tracking-wide uppercase">How it works</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold font-jakarta mb-4">Up and running in minutes</h2>
+        <p class="text-gray-500 dark:text-gray-400 max-w-lg mx-auto">No complicated setup. Just sign up and start learning.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center fade-up">
+          <div class="w-14 h-14 bg-brand-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold font-jakarta mx-auto mb-5 shadow-lg shadow-brand-200 dark:shadow-brand-900/30">1</div>
+          <h3 class="font-bold font-jakarta text-lg mb-2">Create an account</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Sign up in seconds with your email. No credit card, no hassle.</p>
+        </div>
+        <div class="text-center fade-up" style="transition-delay:0.15s">
+          <div class="w-14 h-14 bg-brand-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold font-jakarta mx-auto mb-5 shadow-lg shadow-brand-200 dark:shadow-brand-900/30">2</div>
+          <h3 class="font-bold font-jakarta text-lg mb-2">Build or discover quizzes</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Create your own quiz sets or browse public ones from other learners.</p>
+        </div>
+        <div class="text-center fade-up" style="transition-delay:0.3s">
+          <div class="w-14 h-14 bg-brand-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold font-jakarta mx-auto mb-5 shadow-lg shadow-brand-200 dark:shadow-brand-900/30">3</div>
+          <h3 class="font-bold font-jakarta text-lg mb-2">Track your growth</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Take quizzes, get instant results, and watch your dashboard improve over time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 fade-up">
+        <p class="text-brand-600 font-semibold text-sm mb-2 tracking-wide uppercase">Testimonials</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold font-jakarta mb-4">What learners are saying</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <div class="card-hover bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 fade-up">
+          <div class="flex gap-1 mb-4"><span class="text-amber-400 text-sm">★★★★★</span></div>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-5">"Nova LC made reviewing for exams actually fun. I love how clean the interface is — no distractions, just the quiz."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-brand-100 dark:bg-brand-900/40 flex items-center justify-center text-brand-600 font-bold text-sm">FA</div>
+            <div>
+              <p class="text-sm font-semibold">Franz Angelo</p>
+              <p class="text-xs text-gray-400">IT Student</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-hover bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 fade-up" style="transition-delay:0.1s">
+          <div class="flex gap-1 mb-4"><span class="text-amber-400 text-sm">★★★★★</span></div>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-5">"I use it to create reviewer sets for my students. The instant scoring and dashboard feedback saves me so much time."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center text-indigo-600 font-bold text-sm">P</div>
+            <div>
+              <p class="text-sm font-semibold">Pranziss</p>
+              <p class="text-xs text-gray-400">Random User</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-hover bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 fade-up" style="transition-delay:0.2s">
+          <div class="flex gap-1 mb-4"><span class="text-amber-400 text-sm">★★★★☆</span></div>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-5">"The AI chatbot is surprisingly helpful for clarifying topics I got wrong"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center text-emerald-600 font-bold text-sm">YB</div>
+            <div>
+              <p class="text-sm font-semibold">yubedaoneineed</p>
+              <p class="text-xs text-gray-400">Independent Learner</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-6">
+    <div class="max-w-3xl mx-auto text-center fade-up">
+      <div class="bg-gradient-to-br from-brand-600 to-indigo-600 rounded-3xl p-12 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-24 -translate-x-24"></div>
+        <div class="relative z-10">
+          <h2 class="text-3xl md:text-4xl font-extrabold font-jakarta text-white mb-4">Ready to study smarter?</h2>
+          <p class="text-blue-100 mb-8 text-lg">Join Nova Learning Center and take control of your learning — for free.</p>
+          <a href="pages/login.html" class="inline-block bg-white text-brand-600 font-bold px-8 py-3.5 rounded-xl hover:bg-blue-50 transition-colors shadow-lg">
+            Get started for free →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-100 dark:border-gray-800 py-8 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-md bg-brand-600 flex items-center justify-center">
+          <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <span class="font-bold text-sm font-jakarta">Nova<span class="text-brand-600">LC</span></span>
+      </div>
+      <p class="text-xs text-gray-400">© 2026 Nova Learning Center. Bohol Island State University — Balilihan Campus.</p>
+      <div class="flex gap-5 text-xs text-gray-400">
+        <a href="#" class="hover:text-brand-600 transition-colors">Privacy</a>
+        <a href="#" class="hover:text-brand-600 transition-colors">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

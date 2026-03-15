@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght;500;600;700;800&family=Inter:wght;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { jakarta: ['Plus Jakarta Sans', 'sans-serif'], inter: ['Inter', 'sans-serif'] },
+          colors: { brand: { 50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a' } }
+        }
+      }
+    }
+  </script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nova LC — Play Quiz</title>
+  <script>
+    const _t = localStorage.getItem('nlc-theme');
+    if (_t === 'dark' || (!_t && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+  </script>
+  <style>
+    .choice-btn { transition: all 0.15s ease; }
+    .choice-btn:hover:not(.selected):not(.disabled) { transform: translateY(-1px); }
+    .choice-btn.selected { border-color: #2563eb; background: rgba(37,99,235,0.08); }
+    .dark .choice-btn.selected { background: rgba(37,99,235,0.15); }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
+
+  <!-- Top bar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+    <div class="max-w-2xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a id="back-link" href="dashboard.html" class="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-600 transition-colors font-medium flex items-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        Exit
+      </a>
+      <span id="quiz-title-nav" class="text-sm font-semibold text-gray-700 dark:text-gray-300 truncate max-w-xs"></span>
+      <button onclick="toggleTheme()" class="w-9 h-9 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+        <svg class="w-4 h-4 text-gray-600 dark:text-gray-400 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+        <svg class="w-4 h-4 text-gray-600 dark:text-gray-400 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+    </div>
+    <!-- Progress bar -->
+    <div class="h-1 bg-gray-100 dark:bg-gray-800">
+      <div id="progress-bar" class="h-full bg-brand-500 transition-all duration-500" style="width:0%"></div>
+    </div>
+  </nav>
+
+  <main class="max-w-2xl mx-auto px-6 pt-24 pb-16">
+
+    <!-- Loading -->
+    <div id="play-loading" class="text-center py-24 text-gray-400 text-sm">
+      <svg class="w-6 h-6 animate-spin mx-auto mb-3 text-brand-400" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg>
+      Loading quiz...
+    </div>
+
+    <!-- Question card -->
+    <div id="play-content" class="hidden">
+      <div class="text-center mb-8">
+        <p id="question-counter" class="text-sm text-gray-400 font-medium mb-1"></p>
+        <p id="question-text" class="text-xl md:text-2xl font-bold font-jakarta text-gray-900 dark:text-white leading-snug"></p>
+      </div>
+
+      <div id="choices-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8"></div>
+
+      <div class="flex items-center justify-between">
+        <span id="answered-hint" class="text-xs text-gray-400 hidden">Select an answer to continue</span>
+        <div class="ml-auto">
+          <button id="next-btn" onclick="nextQuestion()"
+            class="btn-primary text-white font-semibold px-8 py-3 rounded-xl text-sm disabled:opacity-40 disabled:cursor-not-allowed"
+            disabled>
+            Next →
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script>
+    const user   = nlcRequireAuth('login.html');
+    const params = new URLSearchParams(window.location.search);
+    const quizId = parseInt(params.get('id'));
+
+    if (!quizId) window.location.href = 'dashboard.html';
+
+    let questions  = [];
+    let answers    = [];  // chosen index per question
+    let current    = 0;
+    let quizTitle  = '';
+
+    if (user) init();
+
+    async function init() {
+      try {
+        const [quizRes, qRes] = await Promise.all([
+          fetch(`../api/quiz/get_one.php?id=${quizId}`),
+          fetch(`../api/questions/get_by_quiz.php?id=${quizId}`)
+        ]);
+        if (!quizRes.ok || !qRes.ok) { window.location.href = 'dashboard.html'; return; }
+
+        const quiz = await quizRes.json();
+        questions  = await qRes.json();
+
+        if (!questions.length) { window.location.href = `quiz-detail.html?id=${quizId}`; return; }
+
+        quizTitle  = quiz.title;
+        answers    = new Array(questions.length).fill(-1);
+
+        document.getElementById('quiz-title-nav').textContent = quizTitle;
+        document.getElementById('back-link').href = `quiz-detail.html?id=${quizId}`;
+        document.getElementById('play-loading').classList.add('hidden');
+        document.getElementById('play-content').classList.remove('hidden');
+
+        renderQuestion();
+      } catch {
+        document.getElementById('play-loading').innerHTML = '<p class="text-red-400 text-sm">Failed to load quiz.</p>';
+      }
+    }
+
+    function renderQuestion() {
+      const q   = questions[current];
+      const total = questions.length;
+
+      // Progress
+      document.getElementById('progress-bar').style.width = `${(current / total) * 100}%`;
+      document.getElementById('question-counter').textContent = `Question ${current + 1} of ${total}`;
+      document.getElementById('question-text').textContent = q.question_text;
+
+      // Choices
+      const grid = document.getElementById('choices-grid');
+      grid.innerHTML = q.choices.map((c, i) => `
+        <button onclick="selectChoice(${i})"
+          class="choice-btn text-left px-5 py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-brand-400 ${answers[current] === i ? 'selected border-brand-500 bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-300' : ''}">
+          <span class="inline-block w-6 h-6 rounded-lg bg-gray-100 dark:bg-gray-800 text-xs font-bold text-gray-500 text-center leading-6 mr-2">${String.fromCharCode(65+i)}</span>
+          ${c}
+        </button>`).join('');
+
+      // Next/Submit button
+      const btn = document.getElementById('next-btn');
+      const isLast = current === total - 1;
+      btn.textContent  = isLast ? 'Submit Quiz ✓' : 'Next →';
+      btn.disabled     = answers[current] === -1;
+
+      document.getElementById('answered-hint').classList.toggle('hidden', answers[current] !== -1);
+    }
+
+    function selectChoice(index) {
+      answers[current] = index;
+      document.getElementById('next-btn').disabled = false;
+      document.getElementById('answered-hint').classList.add('hidden');
+
+      // Update button styles
+      document.querySelectorAll('.choice-btn').forEach((btn, i) => {
+        btn.classList.toggle('selected', i === index);
+        if (i === index) {
+          btn.classList.add('border-brand-500', 'text-brand-700');
+          btn.classList.remove('border-gray-200', 'dark:border-gray-700');
+        } else {
+          btn.classList.remove('border-brand-500', 'text-brand-700');
+          btn.classList.add('border-gray-200');
+        }
+      });
+    }
+
+    async function nextQuestion() {
+      if (answers[current] === -1) return;
+
+      const isLast = current === questions.length - 1;
+
+      if (!isLast) {
+        current++;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      // Submit
+      const btn   = document.getElementById('next-btn');
+      btn.textContent = 'Submitting...';
+      btn.disabled    = true;
+
+      const score = answers.reduce((acc, chosen, i) => acc + (chosen === questions[i].correct_index ? 1 : 0), 0);
+      const total = questions.length;
+
+      try {
+        await fetch('../api/attempts/save.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ quiz_id: quizId, score, total, answers })
+        });
+      } catch {}
+
+      // Always redirect even if save failed
+      window.location.href = `quiz-results.html?id=${quizId}&score=${score}&total=${total}&answers=${encodeURIComponent(JSON.stringify(answers))}`;
+    }
+  </script>
+  <script src="../assets/js/chatbot.js"></script>
+</body>
+</html>

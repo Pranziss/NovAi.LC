@@ -1,0 +1,224 @@
+/* =====================
+   Nova Learning Center
+   Global Stylesheet — Fully Offline Ready
+   ===================== */
+
+/* =====================
+   Local Fonts
+   Place font files in assets/fonts/
+   ===================== */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-SemiBold.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-ExtraBold.woff2') format('woff2');
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+
+/* =====================
+   Base Font Assignment
+   ===================== */
+* { font-family: 'Inter', system-ui, sans-serif; }
+h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+.font-jakarta { font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important; }
+.font-inter    { font-family: 'Inter', system-ui, sans-serif !important; }
+
+/* =====================
+   Brand Color Utilities
+   Replaces Tailwind's custom brand-* colors
+   since tailwind.min.css is pre-compiled
+   ===================== */
+
+/* Backgrounds */
+.bg-brand-50  { background-color: #eff6ff; }
+.bg-brand-100 { background-color: #dbeafe; }
+.bg-brand-200 { background-color: #bfdbfe; }
+.bg-brand-300 { background-color: #93c5fd; }
+.bg-brand-400 { background-color: #60a5fa; }
+.bg-brand-500 { background-color: #3b82f6; }
+.bg-brand-600 { background-color: #2563eb; }
+.bg-brand-700 { background-color: #1d4ed8; }
+.bg-brand-800 { background-color: #1e40af; }
+.bg-brand-900 { background-color: #1e3a8a; }
+
+/* Text */
+.text-brand-50  { color: #eff6ff; }
+.text-brand-100 { color: #dbeafe; }
+.text-brand-200 { color: #bfdbfe; }
+.text-brand-300 { color: #93c5fd; }
+.text-brand-400 { color: #60a5fa; }
+.text-brand-500 { color: #3b82f6; }
+.text-brand-600 { color: #2563eb; }
+.text-brand-700 { color: #1d4ed8; }
+.text-brand-800 { color: #1e40af; }
+.text-brand-900 { color: #1e3a8a; }
+
+/* Borders */
+.border-brand-50  { border-color: #eff6ff; }
+.border-brand-100 { border-color: #dbeafe; }
+.border-brand-200 { border-color: #bfdbfe; }
+.border-brand-300 { border-color: #93c5fd; }
+.border-brand-400 { border-color: #60a5fa; }
+.border-brand-500 { border-color: #3b82f6; }
+.border-brand-600 { border-color: #2563eb; }
+.border-brand-700 { border-color: #1d4ed8; }
+.border-brand-800 { border-color: #1e40af; }
+.border-brand-900 { border-color: #1e3a8a; }
+
+/* Ring / Focus */
+.ring-brand-100 { --tw-ring-color: #dbeafe; }
+.ring-brand-400 { --tw-ring-color: #60a5fa; }
+.ring-brand-500 { --tw-ring-color: #3b82f6; }
+
+/* Dark mode brand overrides */
+.dark .dark\:bg-brand-900\/30  { background-color: rgba(30, 58, 138, 0.30); }
+.dark .dark\:bg-brand-900\/40  { background-color: rgba(30, 58, 138, 0.40); }
+.dark .dark\:text-brand-400    { color: #60a5fa; }
+.dark .dark\:border-brand-800  { border-color: #1e40af; }
+
+/* Peer-checked brand (for toggle switches & radio buttons) */
+.peer:checked ~ .peer-checked\:bg-brand-600    { background-color: #2563eb; }
+.peer:checked ~ .peer-checked\:border-brand-500 { border-color: #3b82f6; }
+.peer:checked ~ .peer-checked\:bg-brand-50      { background-color: #eff6ff; }
+.peer:checked ~ .peer-checked\:text-brand-600   { color: #2563eb; }
+.dark .peer:checked ~ .dark\:peer-checked\:bg-brand-900\/30 { background-color: rgba(30,58,138,0.30); }
+
+/* =====================
+   Hero Background
+   ===================== */
+.hero-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(37, 99, 235, 0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 60%, rgba(99, 102, 241, 0.12) 0%, transparent 60%);
+}
+.dark .hero-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(37, 99, 235, 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 60%, rgba(99, 102, 241, 0.18) 0%, transparent 60%);
+}
+
+/* =====================
+   Grid Background
+   ===================== */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(37, 99, 235, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.dark .grid-bg {
+  background-image:
+    linear-gradient(rgba(37, 99, 235, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.1) 1px, transparent 1px);
+}
+
+/* =====================
+   Card Hover Effect
+   ===================== */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.08);
+}
+
+/* =====================
+   Scroll Fade-Up Animation
+   ===================== */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================
+   Primary Button
+   ===================== */
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+}
+
+/* =====================
+   Badge Glow
+   ===================== */
+.badge-glow {
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* =====================
+   Floating Dots (Hero)
+   ===================== */
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-18px) rotate(180deg); }
+}
+
+/* =====================
+   Custom Scrollbar
+   ===================== */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: rgba(37, 99, 235, 0.3); border-radius: 3px; }
+
+/* =====================
+   Nova Chatbot — Floating Bubble
+   ===================== */
+#nova-window {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+#nova-messages::-webkit-scrollbar       { width: 4px; }
+#nova-messages::-webkit-scrollbar-track { background: transparent; }
+#nova-messages::-webkit-scrollbar-thumb { background: rgba(37, 99, 235, 0.2); border-radius: 2px; }
+
+#nova-typing .animate-bounce:nth-child(1) { animation-delay: 0s; }
+#nova-typing .animate-bounce:nth-child(2) { animation-delay: 0.15s; }
+#nova-typing .animate-bounce:nth-child(3) { animation-delay: 0.30s; }
